@@ -1,5 +1,4 @@
 import requests, json, os
-from bs4 import BeautifulSoup
 
 import warnings
 warnings.filterwarnings('ignore')
