@@ -1,4 +1,6 @@
-import requests, json, os
+import os, time, json
+import requests
+import schedule
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -7,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv('.env')
 WEB_HOOK_URL = os.environ.get("WEB_HOOK_URL")
 
-if __name__ == '__main__':
+def _job():
     url = 'https://api.coin.z.com/public/v1/ticker'
     params = {'symbol': 'BTC'}
     response = requests.get(url, params=params)
@@ -22,3 +24,10 @@ if __name__ == '__main__':
     })
 
     requests.post(WEB_HOOK_URL, data=message_json)
+
+if __name__ == '__main__':
+    schedule.every().minute.at(":00").do(_job)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
