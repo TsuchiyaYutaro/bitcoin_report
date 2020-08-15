@@ -26,7 +26,7 @@ def _job():
     requests.post(WEB_HOOK_URL, data=message_json)
 
 if __name__ == '__main__':
-    schedule.every().minute.at(":00").do(_job)
+    schedule.every(15).minutes.do(_job)
 
     while True:
         schedule.run_pending()
